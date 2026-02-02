@@ -1,0 +1,14 @@
+services:
+  api:
+    image: python:3.11-slim
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: bash -c "pip install -r requirements.txt && uvicorn app.main:app --host 0.0.0.0 --port 8000"
+    environment:
+      - SECRET_KEY=change_me_in_production
+      - DATABASE_URL=sqlite:///./data.db
+    ports:
+      - "9000:8000"
+
+# Optional: bring your own Postgres by overriding DATABASE_URL env when running.

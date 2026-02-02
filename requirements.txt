@@ -1,0 +1,19 @@
+fastapi
+uvicorn[standard]
+sqlalchemy
+psycopg2
+pydantic
+pydantic[email]
+pydantic-settings
+python-jose[cryptography]
+passlib[bcrypt]
+bcrypt==4.1.2
+python-multipart
+alembic
+python-decouple  # optional, but nice for env
+python-dotenv
+pytest
+httpx
+reportlab
+redis
+qrcode[pil]
