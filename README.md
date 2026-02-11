@@ -10,6 +10,23 @@ uvicorn app.main:app --reload
 # Docs at http://127.0.0.1:8000/docs
 ```
 
+## MCP SSE server (for Syntellio)
+This repo now exposes an MCP-compatible SSE server so Syntellio can call finance tools.
+
+```bash
+pip install -r requirements.txt
+python -m app.mcp_server
+# MCP SSE at http://127.0.0.1:8080/sse
+```
+
+Auth:
+- Send `Authorization: Bearer <jwt>` or `x-api-key: <key>` headers with tool calls.
+- To disable auth for local testing, set `MCP_AUTH_REQUIRED=false` and set `MCP_DEFAULT_OWNER_ID` to a valid user id.
+
+Syntellio config:
+- Set `MCP_SERVER_URL` to `http://<host>:8080/sse`.
+- Ensure the MCP client sends the same auth headers if enabled.
+
 ## Tool catalog (discovery)
 `GET /api/v1/tools` returns a machine-readable list of available modules/endpoints with their input/output fields.
 
