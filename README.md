@@ -26,6 +26,7 @@ Auth:
 Syntellio config:
 - Set `MCP_SERVER_URL` to `http://<host>:8080/sse`.
 - Ensure the MCP client sends the same auth headers if enabled.
+- Tool names are underscore-separated (e.g., `expenses_list`, `invoices_create`).
 
 ## Tool catalog (discovery)
 `GET /api/v1/tools` returns a machine-readable list of available modules/endpoints with their input/output fields.

@@ -1,5 +1,3 @@
-from __future__ import annotations
-
 from contextlib import contextmanager
 
 from jose import JWTError, jwt
@@ -127,7 +125,7 @@ mcp = FastMCP(
 )
 
 
-@mcp.tool(name="invoices.create", description="Create a new invoice.")
+@mcp.tool(name="invoices_create", description="Create a new invoice.")
 def invoices_create(data: InvoiceCreate, ctx: Context) -> InvoiceOut:
     with db_session() as db:
         user = _require_user(db, ctx)
@@ -135,7 +133,7 @@ def invoices_create(data: InvoiceCreate, ctx: Context) -> InvoiceOut:
         return InvoiceOut.model_validate(invoice)
 
 
-@mcp.tool(name="invoices.list", description="List invoices for the authenticated user.")
+@mcp.tool(name="invoices_list", description="List invoices for the authenticated user.")
 def invoices_list(ctx: Context, skip: int = 0, limit: int = 100) -> list[InvoiceOut]:
     with db_session() as db:
         user = _require_user(db, ctx)
@@ -143,7 +141,7 @@ def invoices_list(ctx: Context, skip: int = 0, limit: int = 100) -> list[Invoice
         return [InvoiceOut.model_validate(inv) for inv in invoices]
 
 
-@mcp.tool(name="invoices.get", description="Fetch a single invoice by ID.")
+@mcp.tool(name="invoices_get", description="Fetch a single invoice by ID.")
 def invoices_get(invoice_id: int, ctx: Context) -> InvoiceOut:
     with db_session() as db:
         user = _require_user(db, ctx)
@@ -153,7 +151,7 @@ def invoices_get(invoice_id: int, ctx: Context) -> InvoiceOut:
         return InvoiceOut.model_validate(invoice)
 
 
-@mcp.tool(name="invoices.update_status", description="Update an invoice status.")
+@mcp.tool(name="invoices_update_status", description="Update an invoice status.")
 def invoices_update_status(invoice_id: int, status: str, ctx: Context) -> InvoiceOut:
     with db_session() as db:
         user = _require_user(db, ctx)
@@ -163,7 +161,7 @@ def invoices_update_status(invoice_id: int, status: str, ctx: Context) -> Invoic
         return InvoiceOut.model_validate(invoice)
 
 
-@mcp.tool(name="expenses.create", description="Create a new expense.")
+@mcp.tool(name="expenses_create", description="Create a new expense.")
 def expenses_create(data: ExpenseCreate, ctx: Context) -> ExpenseOut:
     with db_session() as db:
         user = _require_user(db, ctx)
@@ -171,7 +169,7 @@ def expenses_create(data: ExpenseCreate, ctx: Context) -> ExpenseOut:
         return ExpenseOut.model_validate(expense)
 
 
-@mcp.tool(name="expenses.list", description="List expenses for the authenticated user.")
+@mcp.tool(name="expenses_list", description="List expenses for the authenticated user.")
 def expenses_list(ctx: Context) -> list[ExpenseOut]:
     with db_session() as db:
         user = _require_user(db, ctx)
@@ -179,7 +177,7 @@ def expenses_list(ctx: Context) -> list[ExpenseOut]:
         return [ExpenseOut.model_validate(exp) for exp in expenses]
 
 
-@mcp.tool(name="expenses.get", description="Fetch a single expense by ID.")
+@mcp.tool(name="expenses_get", description="Fetch a single expense by ID.")
 def expenses_get(expense_id: int, ctx: Context) -> ExpenseOut:
     with db_session() as db:
         user = _require_user(db, ctx)
@@ -189,7 +187,7 @@ def expenses_get(expense_id: int, ctx: Context) -> ExpenseOut:
         return ExpenseOut.model_validate(expense)
 
 
-@mcp.tool(name="expenses.update", description="Update an expense.")
+@mcp.tool(name="expenses_update", description="Update an expense.")
 def expenses_update(expense_id: int, update: ExpenseUpdate, ctx: Context) -> ExpenseOut:
     with db_session() as db:
         user = _require_user(db, ctx)
@@ -200,7 +198,7 @@ def expenses_update(expense_id: int, update: ExpenseUpdate, ctx: Context) -> Exp
         return ExpenseOut.model_validate(expense)
 
 
-@mcp.tool(name="tax.configs.create", description="Create a tax configuration.")
+@mcp.tool(name="tax_configs_create", description="Create a tax configuration.")
 def tax_configs_create(data: TaxConfigCreate, ctx: Context) -> TaxConfigOut:
     with db_session() as db:
         user = _require_user(db, ctx)
@@ -208,7 +206,7 @@ def tax_configs_create(data: TaxConfigCreate, ctx: Context) -> TaxConfigOut:
         return TaxConfigOut.model_validate(cfg)
 
 
-@mcp.tool(name="tax.configs.list", description="List tax configurations.")
+@mcp.tool(name="tax_configs_list", description="List tax configurations.")
 def tax_configs_list(ctx: Context) -> list[TaxConfigOut]:
     with db_session() as db:
         user = _require_user(db, ctx)
@@ -216,7 +214,7 @@ def tax_configs_list(ctx: Context) -> list[TaxConfigOut]:
         return [TaxConfigOut.model_validate(cfg) for cfg in cfgs]
 
 
-@mcp.tool(name="company.profile.get", description="Get the company profile.")
+@mcp.tool(name="company_profile_get", description="Get the company profile.")
 def company_profile_get(ctx: Context) -> CompanyProfileOut:
     with db_session() as db:
         user = _require_user(db, ctx)
@@ -224,7 +222,7 @@ def company_profile_get(ctx: Context) -> CompanyProfileOut:
         return CompanyProfileOut.model_validate(profile)
 
 
-@mcp.tool(name="company.profile.update", description="Update the company profile.")
+@mcp.tool(name="company_profile_update", description="Update the company profile.")
 def company_profile_update(data: CompanyProfileUpdate, ctx: Context) -> CompanyProfileOut:
     with db_session() as db:
         user = _require_user(db, ctx)
@@ -232,7 +230,7 @@ def company_profile_update(data: CompanyProfileUpdate, ctx: Context) -> CompanyP
         return CompanyProfileOut.model_validate(profile)
 
 
-@mcp.tool(name="reports.summary", description="Totals for invoices and expenses.")
+@mcp.tool(name="reports_summary", description="Totals for invoices and expenses.")
 def reports_summary(ctx: Context) -> SummaryReport:
     with db_session() as db:
         user = _require_user(db, ctx)
@@ -258,7 +256,7 @@ def reports_summary(ctx: Context) -> SummaryReport:
         )
 
 
-@mcp.tool(name="reports.monthly", description="Monthly totals for invoices and expenses.")
+@mcp.tool(name="reports_monthly", description="Monthly totals for invoices and expenses.")
 def reports_monthly(ctx: Context) -> MonthlyReport:
     with db_session() as db:
         user = _require_user(db, ctx)
